@@ -1,6 +1,6 @@
 
 import datetime
-import hashlib
+import hashlib  # permite cifrar las contraseñas en la base de datos
 #print(connection)
 
 from conexBD import CBD
@@ -19,8 +19,14 @@ class users:
         
     def registrar(self):
         fecha=datetime.datetime.now()
+        
+        #cifrar contraseña
+        
+        cifrado = hashlib.sha256()
+        cifrado.update(self.password.encode('utf8'))
+        
         sql = "INSERT INTO users VALUES(null, %s,%s,%s,%s,%s)"
-        usuario=(self.nombre, self.apellido, self.email, self.password, fecha)
+        usuario=(self.nombre, self.apellido, self.email, cifrado.hexdigest(), fecha)
         
         cursor.execute(sql, usuario)
         connection.commit()

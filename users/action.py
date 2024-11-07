@@ -41,8 +41,17 @@ class Actions:
         
     def login(self):
          
-         email= input("Ingresa tu email")
-         password= input("Ingresa tu Contraseña")
+         email= input("\nIngresa tu email: ")
+         password= input("\nIngresa tu Contraseña: \n")
+         
+         sql_login = "SELECT * FROM users WHERE email = %s AND password = %s "
+         cursor.execute(sql_login, (email, password))
+         
+         if cursor.fetchone() is not None:
+            print("Bienvenido al sistema ")
+         else:
+             print("Contraseña o usuario incorrecto. Intentalo de nuevo")
+            
          
          
         
