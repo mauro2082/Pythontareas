@@ -37,5 +37,15 @@ class users:
         return self
        
         
-    def identificar(self):
-        print("Identificado")
+    def identificar(self, email, password):
+        
+         email = email
+         password = password
+        
+         sql_login = "SELECT * FROM users WHERE email = %s AND password = %s "
+         cursor.execute(sql_login, (email, password))
+         
+         if cursor.fetchone() is not None:
+            print("\nBienvenido al sistema ")
+         else:
+             print("Contraseña o usuario incorrecto. Intentalo de nuevo")
